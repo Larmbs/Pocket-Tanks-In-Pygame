@@ -102,7 +102,7 @@ class Tank:
                 self.x += self.vx
         else:
             if angle_of_terrain <= self.max_steepness:
-                self.x += self.vx
+                self.x += self.vx*np.cos(angle_of_terrain)
 
         self.vx *= 0.4
 

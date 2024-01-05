@@ -31,7 +31,7 @@ class SingleShot(Weapon):
         self.behavior = Bomb_Anim(0, 0, end_time=20, radius=10)
 
     def fire(self, fire_data, proj_list:list):
-        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle, fire_data.power, self.power, self.behavior, self.color))
+        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle, fire_data.power, self.power, self.behavior, self.color, radius=2))
 
 @dataclass
 class BirdShot(Weapon):
@@ -48,11 +48,11 @@ class BirdShot(Weapon):
         i2 = copy.deepcopy(self.behavior)
         i3 = copy.deepcopy(self.behavior)
 
-        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle, fire_data.power * self.drag, self.power, i3, self.color))
+        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle, fire_data.power * self.drag, self.power, i3, self.color, 1.5))
         
-        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle + self.spread, fire_data.power * self.drag, self.power, i1, self.color))
+        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle + self.spread, fire_data.power * self.drag, self.power, i1, self.color, 1.5))
         
-        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle - self.spread, fire_data.power * self.drag, self.power, i2, self.color))
+        proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle - self.spread, fire_data.power * self.drag, self.power, i2, self.color, 1.5))
 
 @dataclass
 class Volley(Weapon):
@@ -75,7 +75,7 @@ class Volley(Weapon):
         for _ in range(self.shot_count):
             obj = copy.deepcopy(self.behavior)
             offset = (np.random.rand() - 0.5) * 2 * self.spread
-            proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle + offset, fire_data.power * self.drag, self.power, obj, self.color))
+            proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle + offset, fire_data.power * self.drag, self.power, obj, self.color, 1))
             time.sleep(self.time_between)
 
 @dataclass
@@ -99,7 +99,7 @@ class MachineGun(Weapon):
         for _ in range(self.shot_count):
             obj = copy.deepcopy(self.behavior)
             offset = (np.random.rand() - 0.5) * 2 * self.spread
-            proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle + offset, fire_data.power * self.drag, self.power, obj, self.color))
+            proj_list.append(Projectile(*fire_data.xy, fire_data.fire_angle + offset, fire_data.power * self.drag, self.power, obj, self.color, 1))
             time.sleep(self.time_between)
 
 @dataclass
